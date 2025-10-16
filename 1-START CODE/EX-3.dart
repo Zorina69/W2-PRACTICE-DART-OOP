@@ -1,7 +1,12 @@
 class MyDuration {
   int milliseconds;
 
-  MyDuration(this.milliseconds);
+  MyDuration(this.milliseconds){
+    if (milliseconds < 0) {
+      throw Exception("Duration cannot be negative!");
+    }
+  }
+  
   MyDuration.fromHours(int hours) : milliseconds = hours * 3600 * 1000;
   MyDuration.fromMinutes(int minutes) : milliseconds = minutes * 60 * 1000;
   MyDuration.fromSeconds(int seconds) : milliseconds = seconds * 1000;
@@ -10,9 +15,6 @@ class MyDuration {
     return MyDuration(this.milliseconds + other.milliseconds);
   }
   MyDuration operator -(MyDuration other) {
-    if (this.milliseconds < other.milliseconds) {
-      throw Exception("Resulting duration cannot be negative!");
-    }
     return MyDuration(this.milliseconds - other.milliseconds);
   }
 
